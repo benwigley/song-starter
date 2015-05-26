@@ -1,0 +1,66 @@
+@import url(helpers.css);
+@import url(buttons.css);
+@import url(forms.css);
+
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+      -ms-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
+h1 {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.generator-button-container {
+  padding-top: 20px;
+}
+
+.button-controls .btn {
+  min-width: 120px;
+}
+
+.saved-beats {
+  padding-bottom: 100px; }
+  .no-beats {
+    font-size: 14px;
+  }
+.saved-beat {
+  display: block;
+  padding: 4px 10px;
+  border-bottom: solid 1px #DDD;
+  cursor: pointer; }
+  .saved-beat.active {
+    background-color: #eee;
+  }
+  .saved-beat .delete-beat {
+    float: right;
+  }
+
+.input-container {
+  padding: 20px 40px;
+  float: left;
+  width: 50%; }
+  .input-container:nth-child(even) {
+    padding-left: 60px;
+  }
+  .input-container:nth-child(odd) {
+    padding-right: 60px;
+  }
+
+  .input-container label {
+    display: block;
+    text-align: center;
+    margin-bottom: 5px;
+  }

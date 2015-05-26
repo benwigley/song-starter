@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Song Starter</title>
+
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+  <div class="container">
+
+    <h1>Song Starter</h1>
+
+    <div class="clearfix">
+      <div class="input-container">
+        <label>Beat variations</label>
+        <input type="number" id="beat-variations" value="2">
+      </div>
+
+      <div class="input-container">
+        <label>Number of bars</label>
+        <input type="number"
+               data-option="numBars"
+               data-reset="true">
+      </div>
+
+      <div class="input-container">
+        <label>Beats per bar</label>
+        <input type="number"
+               data-option="beatsPerBar"
+               data-reset="true">
+      </div>
+
+      <div class="input-container">
+        <label>Min note length</label>
+        <input type="number"
+               data-option="minNoteLength"
+               data-reset="true">
+      </div>
+
+      <div class="input-container">
+        <label>Playback speed</label>
+        <div class="range-labels">
+          <small class="pull-right">Slow</small>
+          <small>Fast</small>
+        </div>
+        <input type="range"
+               min="0.02"
+               max="0.8"
+               step="0.02"
+               data-option="beatLengthSeconds">
+      </div>
+
+      <div class="input-container">
+        <label>Amount of rests (empty notes)</label>
+        <div class="range-labels">
+          <small class="pull-right">More</small>
+          <small>Less</small>
+        </div>
+        <input type="range"
+               min="0"
+               max="75"
+               step="1"
+               data-reset="true"
+               data-option="restLikelyhoodPercentage">
+      </div>
+    </div>
+
+    <div class="btn-container button-controls clearfix">
+      <button id="play-pause-button" class="btn">Pause</button>
+      <button id="save-button" class="btn btn-gray">Save this beat</button>
+    </div>
+
+    <div class="btn-container generator-button-container">
+      <button id="generate-button" class="btn btn-massive">Generate</button>
+    </div>
+
+    <!-- Saved Beats -->
+    <h5>Saved beats</h5>
+    <div class="saved-beats"></div>
+  </div>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/underscore.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/generator.js"></script>
+</body>
+</html>
