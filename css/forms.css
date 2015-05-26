@@ -27,7 +27,11 @@ textarea {
 
 input[type=range] {
   width: 100%;
-  margin: 10px 0;
+  margin: 12px 0;
 }
-.range-labels small {
+.range-labels .center {
+  display: block;
+  width: 80px;
+  margin: 0 auto;
+  margin-bottom: -17px;
 }

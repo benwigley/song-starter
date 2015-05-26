@@ -1,6 +1,6 @@
 'use strict';
 
-(function() {
+$(document).ready(function() {
 
   // Global vars
   var barLooper = null;
@@ -53,6 +53,9 @@
     beatLengthSeconds: 0.4,
     restLikelyhoodPercentage: 38
   });
+
+  // Prevent and infinite loop
+  if (options.minNoteLength <= 0) options.minNoteLength = 0.25;
 
   var sounds = {
     tomtom: new Audio('sounds/tomtom.mp3'),
@@ -123,8 +126,6 @@
    * Creates the random rythm, and starts the music.
    */
   var resetGenerator = function() {
-
-    // Create the random rythm
     fillBars();
     resetPlaybackLoop();
   };
@@ -211,69 +212,89 @@
 
       $savedBeatItems.removeClass('active');
       $el.addClass('active');
+
+      setDefaultInputValues();
+      updateUi();
+      play();
     });
   };
 
 
-  $(document).ready(function() {
+  var updateUi = function() {
+    $('[data-content]').each(function() {
+      var $el = $(this);
+      $el.text(options[$el.data('content')]);
+    });
+  };
 
-    // Set default values on sliders
+  var setDefaultInputValues = function() {
     $('[data-option]').each(function() {
       var $el = $(this);
-      var defaultValue = options[$el.data('option')]
-      $el.val(defaultValue);
+      $el.val(options[$el.data('option')]);
     });
+  };
 
-    // Update generator each time a value changes
-    $('[data-option]').on('change', function(e) {
-      var $target = $(e.target);
-      var value = $target.val();
 
-      if (!$target.data('not-int')) {
-        value = parseFloat(value);
-      }
+  setDefaultInputValues();
+  updateUi();
 
-      options[$target.data('option')] = value;
+  // Update generator each time a value changes
+  $('[data-option]').on('change', function(e) {
+    var $target = $(e.target);
+    var value = $target.val();
 
-      // Save this to user defaults
-      updateUserDefault($target.data('option'), value);
+    if (!$target.data('not-int')) {
+      value = parseFloat(value);
+    }
 
-      if ($target.data('reset')) {
-        resetGenerator();
-      } else {
-        resetPlaybackLoop();
-      }
-    });
+    options[$target.data('option')] = value;
 
-    $('#generate-button').on('click', function() {
+    // Save this to user defaults
+    updateUserDefault($target.data('option'), value);
+
+    if ($target.data('reset')) {
       resetGenerator();
-      $playPuaseButton.text('Pause');
-      var playing = true;
-    });
-
-    // Setup speed range slider
-    $('input[type="range"]');
-
-    // Allow user to save beat
-    $('#save-button').on('click', saveCurrentBeat);
-
-    // Setup play / pause
-    var $playPuaseButton = $('#play-pause-button');
-    var playing = true;
-    var playPause = function() {
-      if (playing) {
-        clearInterval(barLooper);
-        $playPuaseButton.text('Play');
-      } else {
-        resetPlaybackLoop();
-        $playPuaseButton.text('Pause');
-      }
-      playing = !playing;
-    };
-    $playPuaseButton.on('click', playPause);
-
-    // Render the saved beats
-    renderSavedBeats();
+    } else {
+      resetPlaybackLoop();
+    }
+    updateUi();
   });
 
-})();
+  $('#generate-button').on('click', function() {
+    resetGenerator();
+    $('.saved-beat').removeClass('active');
+    $playPuaseButton.text('Pause');
+    var playing = true;
+  });
+
+  // Setup speed range slider
+  $('input[type="range"]');
+
+  // Allow user to save beat
+  $('#save-button').on('click', saveCurrentBeat);
+
+  // Setup play / pause
+  var $playPuaseButton = $('#play-pause-button');
+
+  var play = function() {
+    resetPlaybackLoop();
+    $playPuaseButton.text('Pause');
+    playing = true;
+  };
+  var pause = function() {
+    clearInterval(barLooper);
+    $playPuaseButton.text('Play');
+    playing = false;
+  };
+
+  var playing = true;
+  var playPause = function() {
+    if (playing) return pause();
+    play();
+  };
+  $playPuaseButton.on('click', playPause);
+
+  // Render the saved beats
+  renderSavedBeats();
+
+});

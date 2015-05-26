@@ -18,21 +18,48 @@
 
       <div class="input-container">
         <label>Number of bars</label>
-        <input type="number"
+        <div class="range-labels">
+          <small class="center">
+            Current: <span class="current-value" data-content="numBars"></span>
+          </small>
+          <small class="pull-right">16</small>
+          <small>1</small>
+        </div>
+        <input type="range"
+               min="1"
+               max="16"
+               step="1"
                data-option="numBars"
                data-reset="true">
       </div>
 
       <div class="input-container">
         <label>Beats per bar</label>
-        <input type="number"
+        <div class="range-labels">
+          <small class="center">
+            Current: <span class="current-value" data-content="beatsPerBar"></span>
+          </small>
+          <small class="pull-right">6</small>
+          <small>3</small>
+        </div>
+        <input type="range"
+               min="3"
+               max="6"
+               step="1"
                data-option="beatsPerBar"
                data-reset="true">
       </div>
 
       <div class="input-container">
         <label>Min note length</label>
-        <input type="number"
+        <div class="range-labels">
+          <small class="pull-right">Long</small>
+          <small>Short</small>
+        </div>
+        <input type="range"
+               min="0.10"
+               max="1"
+               step="0.05"
                data-option="minNoteLength"
                data-reset="true">
       </div>
